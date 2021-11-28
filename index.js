@@ -1,7 +1,7 @@
 module.exports = {
   package: {
     name: 'identity-sdk-socket.io',
-    version: '0.0.2'
+    version: '0.0.3'
   },
   Authentication: ({
     rootElement,
@@ -23,7 +23,9 @@ module.exports = {
       usernamePlaceholder = 'Email',
       passwordPlaceholder = 'Password',
     }) => {
-      rootElement.innerHTML = `
+      const element = document.createElement('div');
+
+      element.innerHTML = `
         <form id="signup" action="" class="hide">
           <input id="email" type="email" autocomplete="true" placeholder=${usernamePlaceholder} required />
           <button id="register">${signupText}</button>
@@ -41,8 +43,11 @@ module.exports = {
             </button>
           </div>
         </form>
-        ${rootElement.innerHTML}
       `;
+
+      Array.from(element.children).reverse().forEach(child => (
+        rootElement.insertBefore(child,rootElement.firstElementChild)
+      ));
 
       requestAnimationFrame(() => {
         auth = document.getElementById('auth');
