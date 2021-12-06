@@ -1,7 +1,7 @@
 const IdentitySDK = window.IdentitySDK = {
   package: {
     name: 'identity-sdk-socket.io',
-    version: '0.0.4'
+    version: '0.0.5'
   },
   Authentication: ({
     rootElement,
@@ -145,7 +145,7 @@ const IdentitySDK = window.IdentitySDK = {
         return;
       }
 
-      socket.emit(request, {
+      socket.emit(paths.request, {
         method: 'register',
         body: {
           id: clientId,
