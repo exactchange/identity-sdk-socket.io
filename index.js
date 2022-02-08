@@ -1,17 +1,18 @@
 const IdentitySDK = window.IdentitySDK = {
   package: {
     name: 'identity-sdk-socket.io',
-    version: '0.0.5'
+    version: '0.0.6'
   },
   Authentication: ({
     rootElement,
     socket,
     onAuth,
     onSignup,
+    onPasswordReset,
     onLoad,
     paths = {}
   }) => {
-    let auth, signup, login, create, register, email, username, password;
+    let auth, signup, login, create, register, email, resetEmail, username, password;
 
     const clientId = socket.id;
 
@@ -19,7 +20,9 @@ const IdentitySDK = window.IdentitySDK = {
       title = '',
       loginText = 'Login',
       signupText = 'Signup',
+      forgotText = 'Forgot password',
       createText = 'Create an account',
+      resetText = 'Reset password',
       usernamePlaceholder = 'Email',
       passwordPlaceholder = 'Password',
     }) => {
@@ -29,6 +32,10 @@ const IdentitySDK = window.IdentitySDK = {
         <form id="signup" action="" class="hide">
           <input id="email" type="email" autocomplete="true" placeholder=${usernamePlaceholder} required />
           <button id="register">${signupText}</button>
+        </form>
+        <form id="reset" action="" class="hide">
+          <input id="reset-email" type="email" autocomplete="true" placeholder=${usernamePlaceholder} required />
+          <button id="resetPassword">${resetText}</button>
         </form>
         <form id="auth" action="">
           <h1 id="branding">
@@ -40,6 +47,9 @@ const IdentitySDK = window.IdentitySDK = {
           <div>
             <button id="create">
               ${createText}
+            </button>
+            <button id="forgot">
+              ${forgotText}
             </button>
           </div>
         </form>
@@ -56,6 +66,7 @@ const IdentitySDK = window.IdentitySDK = {
         create = document.getElementById('create');
         register = document.getElementById('register');
         email = document.getElementById('email');
+        resetEmail = document.getElementById('reset-email');
         username = document.getElementById('username');
         password = document.getElementById('password');
 
@@ -88,6 +99,7 @@ const IdentitySDK = window.IdentitySDK = {
           signup.removeAttribute('class');
         };
 
+        resetPassword.onclick = onResetPassword;
         register.onclick = onRegister;
         login.onclick = onLogin;
       });
@@ -154,8 +166,21 @@ const IdentitySDK = window.IdentitySDK = {
       });
     };
 
+    const onResetPassword = async event => {
+      event.preventDefault();
+
+      socket.emit(paths.request, {
+        method: 'resetPassword',
+        body: {
+          id: clientId,
+          username: resetEmail.value
+        }
+      });
+    };
+
     socket.on(paths.auth, onAuth);
     socket.on(paths.register, onSignup);
+    socket.on(paths.resetPassword, onPasswordReset);
 
     return {
       onShow,
