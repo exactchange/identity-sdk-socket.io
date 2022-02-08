@@ -1,7 +1,7 @@
 const IdentitySDK = window.IdentitySDK = {
   package: {
     name: 'identity-sdk-socket.io',
-    version: '0.0.6'
+    version: '0.0.7'
   },
   Authentication: ({
     rootElement,
@@ -34,7 +34,7 @@ const IdentitySDK = window.IdentitySDK = {
           <button id="register">${signupText}</button>
         </form>
         <form id="reset" action="" class="hide">
-          <input id="reset-email" type="email" autocomplete="true" placeholder=${usernamePlaceholder} required />
+          <input id="resetEmail" type="email" autocomplete="true" placeholder=${usernamePlaceholder} required />
           <button id="resetPassword">${resetText}</button>
         </form>
         <form id="auth" action="">
@@ -64,9 +64,10 @@ const IdentitySDK = window.IdentitySDK = {
         signup = document.getElementById('signup');
         login = document.getElementById('login');
         create = document.getElementById('create');
+        forgot = document.getElementById('forgot');
         register = document.getElementById('register');
         email = document.getElementById('email');
-        resetEmail = document.getElementById('reset-email');
+        resetEmail = document.getElementById('resetEmail');
         username = document.getElementById('username');
         password = document.getElementById('password');
 
@@ -97,6 +98,11 @@ const IdentitySDK = window.IdentitySDK = {
         create.onclick = () => {
           auth.setAttribute('class', 'hide');
           signup.removeAttribute('class');
+        };
+
+        forgot.onclick = () => {
+          auth.setAttribute('class', 'hide');
+          reset.removeAttribute('class');
         };
 
         resetPassword.onclick = onResetPassword;
