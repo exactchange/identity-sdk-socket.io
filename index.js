@@ -1,7 +1,10 @@
+/* eslint-disable no-magic-numbers */
+
+// eslint-disable-next-line no-unused-vars
 const IdentitySDK = window.IdentitySDK = {
   package: {
     name: 'identity-sdk-socket.io',
-    version: '0.0.7'
+    version: '0.0.8'
   },
   Authentication: ({
     rootElement,
@@ -56,7 +59,7 @@ const IdentitySDK = window.IdentitySDK = {
       `;
 
       Array.from(element.children).reverse().forEach(child => (
-        rootElement.insertBefore(child,rootElement.firstElementChild)
+        rootElement.insertBefore(child, rootElement.firstElementChild)
       ));
 
       requestAnimationFrame(() => {
@@ -154,6 +157,7 @@ const IdentitySDK = window.IdentitySDK = {
       event.preventDefault();
 
       const isValid = (
+        // eslint-disable-next-line max-len
         /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
       ).test(email.value);
 
@@ -192,7 +196,7 @@ const IdentitySDK = window.IdentitySDK = {
       onShow,
       onLogin,
       onLoad
-    }
+    };
   },
   Management: {},
   Authorizations: {}
