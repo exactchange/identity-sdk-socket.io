@@ -4,7 +4,7 @@
 const IdentitySDK = window.IdentitySDK = {
   package: {
     name: 'identity-sdk-socket.io',
-    version: '0.0.8'
+    version: '0.1.0'
   },
   Authentication: ({
     rootElement,
